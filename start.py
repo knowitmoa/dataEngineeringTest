@@ -25,12 +25,11 @@ else:
     print(f"Failed to retrieve planets data. Status code: {
           responsePlanet.status_code}")
 
-# Check if the response is successful (status code 200) for persons
+
 if responsePeople.status_code == 200:
-    # Parse the JSON response
+
     dataPeople = responsePeople.json()
 
-    # Save the JSON data to a file
     with open('persons_data.json', 'w') as json_file:
         json.dump(dataPeople, json_file, indent=4)
 

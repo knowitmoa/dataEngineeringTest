@@ -20,7 +20,7 @@
    ```bashs
    pip install -r requirements.txt
    ```
-4. Start program:
+4. Start program that prints all of the planet names:
    ```bash
    python start.py
    ```

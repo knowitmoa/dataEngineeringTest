@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-# connection to the postgressql
+
 engine = create_engine(
     'postgresql://postgres_user:postgres_password@localhost:5432/starwars')
 
