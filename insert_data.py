@@ -46,10 +46,10 @@ for person in data['results']:
         person['birth_year'],
         person['gender'],
         person['homeworld'],
-        films,              # Directly pass the list to psycopg2
-        species,            # Directly pass the list to psycopg2
-        vehicles,           # Directly pass the list to psycopg2
-        starships,          # Directly pass the list to psycopg2
+        films,
+        species,
+        vehicles,
+        starships,
         person['created'],
         person['edited'],
         person['url']
@@ -79,14 +79,13 @@ for planet in dataPlanets['results']:
         planet['terrain'],
         planet['surface_water'],
         planet['population'],
-        residents,          # Correctly use the residents list from planet
-        films,              # Directly pass the list to psycopg2
+        residents,
+        films,
         planet['created'],
         planet['edited'],
         planet['url']
     ))
 
-        
     with open('starships_data.json') as s:
         dataStarships = json.load(s)
 
@@ -123,11 +122,13 @@ for planet in dataPlanets['results']:
 
 cursor.execute('''SELECT name FROM planets''')
 data = cursor.fetchall()
-print(data)
-# Commit the changes and close the connection
+
+# Print each planet name on a new line
+print("Names of planets:")
+for row in data:
+    print(row[0])
 conn.commit()
 cursor.close()
 conn.close()
 
 print("Data inserted successfully.")
-

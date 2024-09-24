@@ -1,5 +1,7 @@
 # dataEngineeringTest
 
+1. Install docker
+
 1. Clone the repository:
 
    ```bash
@@ -8,11 +10,17 @@
    cd repo
    ```
 
-2. Install dependencies:
-   ```bash
+1. Run in terminal
+
+```bash
+  docker-compose up -d
+```
+
+3. Install dependencies:
+   ```bashs
    pip install -r requirements.txt
    ```
-3. Start program:
+4. Start program:
    ```bash
    python start.py
    ```
