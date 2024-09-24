@@ -130,5 +130,3 @@ for row in data:
 conn.commit()
 cursor.close()
 conn.close()
-
-print("Data inserted successfully.")
