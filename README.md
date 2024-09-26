@@ -7,7 +7,7 @@
    ```bash
    git clone https://github.com/knowitmoa/dataEngineeringTest.git
 
-   cd repo
+   cd dataEngineeringTest.git
    ```
 
 1. Run in terminal
