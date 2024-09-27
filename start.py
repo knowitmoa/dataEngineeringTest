@@ -1,7 +1,8 @@
 import requests
 import json
 import pandas as pd
-from tables import *  # importrar metoder från andra filer.
+
+from insert_data import *
 
 
 urlPlanet = 'https://swapi.dev/api/planets'
@@ -18,10 +19,10 @@ if responsePlanet.status_code == 200:
 
     dataPlanet = responsePlanet.json()
 
-    with open('planet_data.json', 'w') as json_file:
+    with open('planets_data.json', 'w') as json_file:
         json.dump(dataPlanet, json_file, indent=4)
 
-    print("Data saved to planet_data.json")
+    print("Data saved to planets_data.json")
 else:
     print(f"Failed to retrieve planets data. Status code: {
           responsePlanet.status_code}")
@@ -53,6 +54,5 @@ else:
           responseStarships.status_code}")
 
     # main.py
-createTables()
-with open('insert_data.py') as insertData:
-    exec(insertData.read())
+# createTables()
+insert_to_tables()
