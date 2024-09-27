@@ -1,6 +1,7 @@
 import requests
 import json
 import pandas as pd
+from tables import *  # importrar metoder från andra filer.
 
 
 urlPlanet = 'https://swapi.dev/api/planets'
@@ -52,7 +53,6 @@ else:
           responseStarships.status_code}")
 
     # main.py
-with open('tables.py') as tables:
-    exec(tables.read())
+createTables()
 with open('insert_data.py') as insertData:
     exec(insertData.read())

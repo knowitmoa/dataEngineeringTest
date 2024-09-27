@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   postgres:
@@ -8,12 +8,12 @@ services:
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: starwars
-    # volumes:
-    #   - ./data:/var/lib/postgresql/data
+  
     ports:
       - "5432:5432"
     networks:
       - postgres-network
+
 
 networks:
   postgres-network:
