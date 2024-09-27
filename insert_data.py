@@ -6,8 +6,11 @@ import requests
 
 def insert_to_tables():
 
-    urlList = ['https://swapi.dev/api/people',
-               'https://swapi.dev/api/planets', 'https://swapi.dev/api/starships']
+    urlAPI = 'https://swapi.dev/api/'
+    response = requests.get(urlAPI)
+    response.raise_for_status()
+    data = response.json()
+    print(data)
 
     connection_string = 'postgresql://postgres_user:postgres_password@localhost:5432/starwars'
     engine = create_engine(connection_string)
@@ -25,7 +28,7 @@ def insert_to_tables():
         print(f"Error connecting to database: {e}")
         return
 
-    for url in urlList:
+    for key, url in data.items():
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -34,11 +37,9 @@ def insert_to_tables():
 
             df = pd.DataFrame(data['results'])
 
-            dbName = url.split('/')[4]
+            df.to_sql(key, con=engine, if_exists='replace', index=False)
 
-            df.to_sql(dbName, con=engine, if_exists='replace', index=False)
-
-            print(dbName, "created and data inserted successfully!")
+            print(key, "created and data inserted successfully!")
 
         except requests.exceptions.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
