@@ -2,12 +2,13 @@ import json
 import pandas as pd
 from sqlalchemy import create_engine
 import psycopg2
+import requests
 
 
 def insert_to_tables():
 
-    jsonList = ['persons_data.json',
-                'planets_data.json', 'starships_data.json']
+    urlList = ['https://swapi.dev/api/people',
+               'https://swapi.dev/api/planets', 'https://swapi.dev/api/starships']
 
     connection_string = 'postgresql://postgres_user:postgres_password@localhost:5432/starwars'
     engine = create_engine(connection_string)
@@ -25,20 +26,24 @@ def insert_to_tables():
         print(f"Error connecting to database: {e}")
         return
 
-    for json_file in jsonList:
-        with open(json_file) as f:
-            data = json.load(f)
+    for url in urlList:
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
 
-            dbName = json_file.split('_')[0]
+            data = response.json()
 
-            results = data.get('results', [])
+            df = pd.DataFrame(data['results'])
 
-            df = pd.DataFrame(results)
-
-            if df.empty:
-                print("No data to insert into the database.")
-                continue
+            dbName = url.split('/')[4]
 
             df.to_sql(dbName, con=engine, if_exists='replace', index=False)
+
+            print(dbName, "created and data inserted successfully!")
+
+        except requests.exceptions.HTTPError as http_err:
+            print(f"HTTP error occurred: {http_err}")
+        except Exception as err:
+            print(f"An error occurred: {err}")
 
     engine.dispose()
