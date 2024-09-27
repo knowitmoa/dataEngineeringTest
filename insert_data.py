@@ -1,4 +1,3 @@
-import json
 import pandas as pd
 from sqlalchemy import create_engine
 import psycopg2
@@ -20,7 +19,7 @@ def insert_to_tables():
             user='postgres_user',
             password='postgres_password'
         )
-        cursor = conn.cursor()
+
         print("Database connection successful.")
     except Exception as e:
         print(f"Error connecting to database: {e}")
