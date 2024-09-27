@@ -12,15 +12,6 @@
 
 1. Run in terminal
 
-```bash
-  docker-compose up -d
-```
-
-3. Install dependencies:
-   ```bashs
-   pip install -r requirements.txt
-   ```
-4. Start program that prints all of the planet names:
    ```bash
-   python start.py
+   bash setup_and_run.sh
    ```
