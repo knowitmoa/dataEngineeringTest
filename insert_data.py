@@ -6,7 +6,7 @@ import requests
 # import time
 
 
-def insert_to_tables():
+def insert_to_tables(connection_string):
 
     urlAPI = 'https://swapi.dev/api/'
     response = requests.get(urlAPI)
@@ -15,7 +15,7 @@ def insert_to_tables():
 
     data = response.json()
 
-    connection_string = 'postgresql://postgres_user:postgres_password@localhost:5432/starwars'
+    
     engine = create_engine(connection_string)
     totalDf = pd.DataFrame()
 
