@@ -17,6 +17,7 @@ def insert_to_tables():
 
     connection_string = 'postgresql://postgres_user:postgres_password@localhost:5432/starwars'
     engine = create_engine(connection_string)
+    totalDf = pd.DataFrame()
 
     for key, url in data.items():
         try:
@@ -29,17 +30,19 @@ def insert_to_tables():
 
             # skapar en dataframe med resultData
             df = pd.DataFrame(resultData)
-            df['time'] = pd.Timestamp.now()
 
-
-            df.to_sql(key, con=engine, if_exists='replace', index=False)
-
-            print(key, "created and data inserted successfully!")
+            totalDf = pd.concat([totalDf,df], axis=0)
 
         except requests.exceptions.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
         except Exception as err:
             print(f"An error occurred: {err}")
+
+    totalDf.to_sql('starWarsTable', con=engine, if_exists='replace', index=False)
+
+    print('starWarsTable was created successfully!')
+    
+
 
     engine.dispose()
 
