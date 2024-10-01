@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # Define the Python file to run
-PYTHON_FILE="start.py" # Replace with your actual Python file name
+PYTHON_FILE="/home/moaahl/Github/dataEngineeringTest/start.py" # Replace with your actual Python file name
 VENV_DIR=".venv"
 
-sudo apt update
 
 # Check if the virtual environment directory exists
 if [ -d "$VENV_DIR" ]; then
@@ -16,17 +15,19 @@ else
     echo "Virtual environment created."
 fi
 echo "Activating the virtual environment..."
-source .venv/bin/activate
+source /home/moaahl/Github/dataEngineeringTest/.venv/bin/activate
 
 
 # Run docker-compose up
 echo "Starting Docker containers with docker-compose..."
-docker-compose up -d
+
+docker-compose -f /home/moaahl/Github/dataEngineeringTest/docker-compose.yml up -d
+
 
 # Install packages from requirements.txt
-if [[ -f "requirements.txt" ]]; then
+if [[ -f "/home/moaahl/Github/dataEngineeringTest/requirements.txt" ]]; then
     echo "Installing packages from requirements.txt..."
-    pip install -r requirements.txt
+    pip install -r /home/moaahl/Github/dataEngineeringTest/requirements.txt
 else
     echo "No requirements.txt found."
 fi
@@ -41,7 +42,20 @@ else
 fi
 
 # # Deactivate the virtual environment
-# echo "Deactivating the virtual environment..."
-# deactivate
+echo "Deactivating the virtual environment..."
+deactivate
 
 echo "Script completed successfully."
+
+
+
+CRON_JOB="*/2 * * * * /bin/bash /home/moaahl/Github/dataEngineeringTest/setup_and_run.sh >> /home/moaahl/Github/dataEngineeringTest/logfile.log 2>&1"
+
+# Check if the cron job already exists
+if ! crontab -l | grep -qF "$CRON_JOB"; then
+    # Add the cron job
+    (crontab -l; echo "$CRON_JOB") | crontab -
+    echo "Cron job added: $CRON_JOB"
+else
+    echo "Cron job already exists: $CRON_JOB"
+fi

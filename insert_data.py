@@ -2,6 +2,9 @@ import pandas as pd
 from sqlalchemy import create_engine
 import requests
 
+# import schedule
+# import time
+
 
 def insert_to_tables():
 
@@ -26,6 +29,8 @@ def insert_to_tables():
 
             # skapar en dataframe med resultData
             df = pd.DataFrame(resultData)
+            df['time'] = pd.Timestamp.now()
+
 
             df.to_sql(key, con=engine, if_exists='replace', index=False)
 
@@ -37,3 +42,11 @@ def insert_to_tables():
             print(f"An error occurred: {err}")
 
     engine.dispose()
+
+
+
+
+    
+
+   
+    
