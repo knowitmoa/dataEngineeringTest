@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Define the Python file to run
+CURRENT_DIR=$(pwd)
 PYTHON_FILE="$CURRENT_DIR/start.py" # Replace with your actual Python file name
 VENV_DIR=".venv"
-CURRENT_DIR=$(pwd)
 
 
 # Check if the virtual environment directory exists
