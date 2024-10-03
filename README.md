@@ -13,7 +13,14 @@
    git clone https://github.com/knowitmoa/dataEngineeringTest.git
 
    cd dataEngineeringTest.git
+
    ```
+4. Set your enviroment variables:
+   ```bash
+   Go to .env and change to your enviroment varibles 
+   ```
+
+
 
 4. Run in terminal:
 
