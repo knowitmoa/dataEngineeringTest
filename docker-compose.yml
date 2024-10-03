@@ -1,19 +1,16 @@
-
-
 services:
   postgres:
     image: postgres:latest
     container_name: my_postgres
     environment:
-      POSTGRES_USER: postgres_user
-      POSTGRES_PASSWORD: postgres_password
-      POSTGRES_DB: starwars
-  
+      POSTGRES_USER: ${MY_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${MY_POSTGRES_DATABASE}
+
     ports:
       - "5432:5432"
     networks:
       - postgres-network
-
 
 networks:
   postgres-network:

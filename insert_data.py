@@ -23,19 +23,22 @@ def insert_to_tables(connection_string):
         for i in range(1,10):
             try:
                 pageUrl= url+"?page="+str(i)
-                print(pageUrl)
+                
                 response = requests.get(pageUrl)
-                response.raise_for_status()
+                
+                # response.raise_for_status()
+                if response.status_code != 200:
+                    break
 
                 data = response.json()  # Gör jsonobjektet till en dictionairy
-                print(data)
+             
                 # tar ut valuen som mappar till keyn 'results'
                 resultData = data['results']
 
                 # skapar en dataframe med resultData
                 df = pd.DataFrame(resultData)
                 df.to_sql(key, con=engine, if_exists='append', index=False)
-                print(  f"{key} was created successfully!")
+               
 
             
 
@@ -46,7 +49,7 @@ def insert_to_tables(connection_string):
         
     
 
-    
+        print(  f"{key} was created successfully!")
         engine.dispose()
 
 def create_one_big_table(connectionString):
@@ -57,6 +60,8 @@ def create_one_big_table(connectionString):
   
 
   people_planets_df.to_sql('total', con=engine , if_exists='replace', index=False)
+
+  print("total was created successfully")
 
   engine.dispose()
 
